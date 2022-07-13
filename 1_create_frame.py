@@ -1,15 +1,27 @@
 from http.client import REQUESTED_RANGE_NOT_SATISFIABLE
 import os
+import cv2
+import pydicom
 import tkinter.ttk as ttk
 import tkinter.messagebox as msgbox
 from tkinter import *
 from tkinter import filedialog
+from PIL import Image, ImageTk
+
 
 root = Tk()
 root.title("DSC Calculator")
 root.resizable(False, False)
 
 def DCMUploadBtn():
+    files = filedialog.askopenfilenames(title = "파일을 선택하세요.", filetypes = (("DCM 파일", "*.DCM"), ("PNG 파일", "*.png"), ("모든 파일", "*.*")))
+    
+    for file in files:
+        ds = pydicom.read_file[file]
+        img = ds.pixel_array[file]
+        cv2.imwrite(file + file.replace(".dcm", ".png"), img)
+        
+        # dcm_list_file.insert(END, file)
     pass
 
 def annotation_Upload():
@@ -46,27 +58,31 @@ def start():
         return
     pass    
 
-# def predictionUplloadBtn():
-#     pass
+def before_image():
+    pass
+
+def after_image():
+    pass
 
 
-# DCM file 업로드 frame
+# File upload Frame
+
 File_upload_frame = LabelFrame(root)
 File_upload_frame.pack()
 
-DCM_frame = LabelFrame(File_upload_frame, text = "DICOM upload")
+# Before Image frame
+
+Before_Image_Button = Button(File_upload_frame, width = 5, text='<', command = before_image)
+Before_Image_Button.pack(side = "left", fill = "y")
+
+
+# DCM file 업로드 frame
+
+DCM_frame = LabelFrame(File_upload_frame, text = "DICOM")
 DCM_frame.pack(side = "left", padx = 5, pady = 5)
 
-
-DCMlist_frame = Frame(DCM_frame)
-DCMlist_frame.pack(padx = 5, pady = 5)
-
-scrollbar = Scrollbar(DCMlist_frame)
-scrollbar.pack(side = "right", fill = "y")
-
-DCM_list_file = Listbox(DCMlist_frame, selectmode = "extended", height = 15, yscrollcommand = scrollbar.set)
-DCM_list_file.pack(side = "left", fill = "both", expand = True)
-scrollbar.config(command = DCM_list_file.yview)
+DCMImage_frame = Frame(DCM_frame, width = 400, height = 400, bg = "white")
+DCMImage_frame.pack(padx = 5, pady = 5)
 
 DCMImage = Button(DCM_frame, width = 20, height = 1, text = "Upload", command = DCMUploadBtn)
 DCMImage.pack(padx = 5, pady = 5)
@@ -75,41 +91,32 @@ DCMImage.pack(padx = 5, pady = 5)
 # annotation 업로드 frame
 
 
-annotation_frame = LabelFrame(File_upload_frame, text = "Annotation Mask upload")
+annotation_frame = LabelFrame(File_upload_frame, text = "Annotation")
 annotation_frame.pack(side = "left", padx = 5, pady = 5)
 
-annotationList_frame = Frame(annotation_frame)
-annotationList_frame.pack(padx = 5, pady = 5)
-
-scrollbar = Scrollbar(annotationList_frame)
-scrollbar.pack(side = "right", fill = "y")
-
-annotation_list_file = Listbox(annotationList_frame, selectmode = "extended", height = 15, yscrollcommand = scrollbar.set)
-annotation_list_file.pack(side = "left", fill = "both", expand = True)
-scrollbar.config(command = annotation_list_file.yview)
+annotationImage_frame = Frame(annotation_frame, width = 400, height = 400, bg = "white")
+annotationImage_frame.pack(padx = 5, pady = 5)
 
 annotationImage = Button(annotation_frame, width = 20, height = 1, text = "Upload", command = annotation_Upload)
 annotationImage.pack(padx = 5, pady = 5)
 
 
-
 # prediction 업로드 frame
 
-prediction_frame = LabelFrame(File_upload_frame, text = "Prediction Mask upload")
+prediction_frame = LabelFrame(File_upload_frame, text = "Prediction")
 prediction_frame.pack(side = "left", padx = 5, pady = 5)
 
-predictionList_frame = Frame(prediction_frame)
-predictionList_frame.pack(padx = 5, pady = 5)
-
-scrollbar = Scrollbar(predictionList_frame)
-scrollbar.pack(side = "right", fill = "y")
-
-prediction_list_file = Listbox(predictionList_frame, selectmode = "extended", height = 15, yscrollcommand = scrollbar.set)
-prediction_list_file.pack(side = "left", fill = "both", expand = True)
-scrollbar.config(command = prediction_list_file.yview)
+predictionImage_frame = Frame(prediction_frame, width = 400, height = 400, bg = "white")
+predictionImage_frame.pack(padx = 5, pady = 5)
 
 predictionImage = Button(prediction_frame, width = 20, height = 1, text = "Upload", command = prediction_Upload)
 predictionImage.pack(padx = 5, pady = 5)
+
+# After Image frame
+
+After_Image_Button = Button(File_upload_frame, width = 5, text='<', command = after_image)
+After_Image_Button.pack(side = "left", fill = "y")
+
 
 
 # 저장 경로 프레임(폴더 선택)
