@@ -144,13 +144,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description = "PROS-CXR-01-CT-01")
     
     parser.add_argument("-d", "--dicom_img", type=str, help="dicom 이미지 파일 경로",
-                        default="./test/dicom/image.png")
+                        default="./DICOM.png")
     
     parser.add_argument("-g", "--ground_truth_mask", type=str, help="정답 마스크 파일 경로",
-                        default="./test/dicom/mask.png")
+                        default="./test/Annotation.png")
     
     parser.add_argument("-p", "--prediction_mask", type=str, help="PROS CXR:01 예측 마스크 파일 경로",
-                        default="./test/aquamarine/pred.png")
+                        default="./test/Prediction.png")
     
     parser.add_argument("-s", "--save_to", type=str, help="최종 결과 저장 경로",
                         default="./output")
@@ -206,7 +206,11 @@ if __name__ == "__main__":
     plot 순서 (저장 파일명: dicescore + dicom 고유명칭 / dicom 고유명칭 별도 입력 필요.)
     '''
     viz_all(img, mask, pmask,
-            save_to=opt.save_to, fn=file_name,
-            img_cm='gray', gt_cm='Greens', pred_cm='Reds',
+            save_to=opt.save_to, 
+            fn=file_name,
+            img_cm='gray', 
+            gt_cm='Greens', 
+            pred_cm='Reds',
             use_contour=False,
-            use_grid=True, grid_alpha=0.5)
+            use_grid=True, 
+            grid_alpha=0.5)
