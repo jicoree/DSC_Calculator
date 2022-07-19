@@ -53,7 +53,7 @@ def viz_all(input_img, gt_mask, pred_mask,
    
     plt.figure(figsize=(30, 20))
     plt.suptitle(str("Dice score: {}".format(round(dice_score,4))), fontsize = 22, x = 0.1, y = 1, fontweight = 'bold')
-    plt.suptitle('PROS-CXR-01-CT-01', fontsize = 22, x = 0.5, y = 1, fontweight = 'bold')
+    # plt.suptitle('PROS-CXR-01-CT-01', fontsize = 22, x = 0.5, y = 1, fontweight = 'bold')
     # plt.suptitle('Test', fontsize = 22, x = 0.8, y = 1, fontweight = 'bold')
     
     plt.subplot(2,3,1)
@@ -124,23 +124,25 @@ def viz_all(input_img, gt_mask, pred_mask,
     
     plt.tight_layout()
     
-    plt.savefig(os.path.join(save_to, str(dice_score)+'_'+fn+'.png'), bbox_inches='tight')
+    plt.savefig(os.path.join(save_to, str(fn)+'_'+str(dice_score)+'.png'), bbox_inches='tight')
 
 
 
 # img = cv2.imread('F:/ETC/DSC_Calculator/DSC_Calculator/test/Image.dcm', cv2.IMREAD_UNCHANGED)
 
-DCMimage = pydicom.read_file('./test/Image.dcm').pixel_array
+DCMimage = pydicom.read_file('./test/Image1.dcm').pixel_array
+Output_name = os.path.basename('./test/Image1.dcm')
+filename, ext = os.path.splitext(Output_name)
 
-annotation = cv2.imread('./test/Annotation.png', cv2.IMREAD_GRAYSCALE)
-prediction = cv2.imread('./test/Prediction_0.25.png', cv2.IMREAD_GRAYSCALE)
+annotation = cv2.imread('./test/Annotation1.png', cv2.IMREAD_GRAYSCALE)
+prediction = cv2.imread('./test/Prediction1.png', cv2.IMREAD_GRAYSCALE)
 
 
 dice_score = dice(annotation, prediction)
 print("Dice Coefficient is: {}".format(round(dice_score, 4)))
 
 viz_all(DCMimage, annotation, prediction,
-        save_to='./output', fn='output',
+        save_to='./output', fn=filename,
         img_cm='gray', gt_cm='Blues', pred_cm='Reds',
         use_contour=True,
         use_grid=False, grid_alpha=0.5)
