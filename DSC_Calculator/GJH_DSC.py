@@ -146,3 +146,4 @@ viz_all(DCMimage, annotation, prediction,
         img_cm='gray', gt_cm='Blues', pred_cm='Reds',
         use_contour=True,
         use_grid=False, grid_alpha=0.5)
+
