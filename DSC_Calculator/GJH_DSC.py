@@ -5,12 +5,13 @@ import matplotlib.pyplot as plt
 
 import pydicom
 
+import pandas as pd
+
 from tkinter import *
 from tkinter import filedialog
 
-from PIL import ImageTk, Image
-
 from tempfile import TemporaryFile
+
     
 def dice(annotation, prediction):
         
