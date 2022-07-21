@@ -46,7 +46,6 @@ def viz_all(input_img, gt_mask, pred_mask,
     
     
     dice_score = dice(annotation, prediction)
-    # print("Dice score: {}".format(round(dice_score,4)))
     
     os.makedirs(save_to, exist_ok=True)
    
@@ -125,9 +124,6 @@ def viz_all(input_img, gt_mask, pred_mask,
     
     plt.savefig(os.path.join(save_to, str(fn)+'_'+str(round(dice_score, 4))+'.png'), bbox_inches='tight')
 
-# DCM: ./DCM
-# annotation: ./annotation
-# prediction: ./prediction
 
 DCM_list = sorted(os.listdir('./DCM'))
 
@@ -139,8 +135,6 @@ for i in range (len(DCM_list)):
     print(filename)    
 
     DCMimage = pydicom.read_file('./DCM/' + DCM_file).pixel_array
-    # Output_name = os.path.basename('./test/Image1.dcm')ß
-    # filename, ext = os.path.splitext(Output_name)
 
     annotation = cv2.imread('./annotation/' + filename + '.png', cv2.IMREAD_GRAYSCALE)
     prediction = cv2.imread('./prediction/' + filename + '.png', cv2.IMREAD_GRAYSCALE)
@@ -156,13 +150,3 @@ for i in range (len(DCM_list)):
             use_grid=False, grid_alpha=0.5)
 
     
-
-
-# DCMimage = pydicom.read_file('./test/Image1.dcm').pixel_array
-# Output_name = os.path.basename('./test/Image1.dcm')
-# filename, ext = os.path.splitext(Output_name)
-
-# annotation = cv2.imread('./test/Annotation1.png', cv2.IMREAD_GRAYSCALE)
-# prediction = cv2.imread('./test/Prediction1.png', cv2.IMREAD_GRAYSCALE)
-
-# print("Dice Coefficient is: {}".format(round(dice_score, 4)))
