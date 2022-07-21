@@ -1,0 +1,7 @@
+Dcm,annotation,prediction
+.\test\Image1.dcm,.\test\Annotation1.png,.\test\Prediction1.png
+.\test\Image2.dcm,.\test\Annotation2.png,.\test\Prediction2.png
+.\test\Image3.dcm,.\test\Annotation3.png,.\test\Prediction3.png
+.\test\Image4.dcm,.\test\Annotation4.png,.\test\Prediction4.png
+.\test\Image5.dcm,.\test\Annotation5.png,.\test\Prediction5.png
+.\test\Image6.dcm,.\test\Annotation6.png,.\test\Prediction6.png
