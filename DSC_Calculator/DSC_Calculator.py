@@ -22,7 +22,7 @@ def dice(annotation, prediction):
 
     intersection = np.logical_and(annotation, prediction)
 
-    return (2. * intersection.sum()) / (annotation.sum() + prediction.sum()) 
+    return np.sum(2. * intersection.sum()) / (np.sum(annotation.sum()) + np.sum(prediction.sum()))
 
 def viz_all(input_img, gt_mask, pred_mask,
             save_to='./output', fn='sample',
