@@ -127,26 +127,30 @@ def viz_all(input_img, gt_mask, pred_mask,
 
 DCM_list = sorted(os.listdir('./DCM'))
 
-for i in range (len(DCM_list)):
-    DCM_file = DCM_list[i]
-    Output_name = os.path.basename(DCM_file)
-    print(Output_name)
-    filename, ext = os.path.splitext(Output_name)
-    print(filename)    
+if DCM_list == None:
+    print("No DCM file")
+    exit()
+else:
+    for i in range (len(DCM_list)):
+        DCM_file = DCM_list[i]
+        Output_name = os.path.basename(DCM_file)
+        print(Output_name)
+        filename, ext = os.path.splitext(Output_name)
+        print(filename)    
 
-    DCMimage = pydicom.read_file('./DCM/' + DCM_file).pixel_array
+        DCMimage = pydicom.read_file('./DCM/' + DCM_file).pixel_array
 
-    annotation = cv2.imread('./annotation/' + filename + '.png', cv2.IMREAD_GRAYSCALE)
-    prediction = cv2.imread('./prediction/' + filename + '.png', cv2.IMREAD_GRAYSCALE)
+        annotation = cv2.imread('./annotation/' + filename + '.png', cv2.IMREAD_GRAYSCALE)
+        prediction = cv2.imread('./prediction/' + filename + '.png', cv2.IMREAD_GRAYSCALE)
 
 
-    dice_score = dice(annotation, prediction)
-    print("Dice Coefficient is: {}".format(round(dice_score, 4)))
+        dice_score = dice(annotation, prediction)
+        print("Dice Coefficient is: {}".format(round(dice_score, 4)))
 
-    viz_all(DCMimage, annotation, prediction,
-            save_to='./output', fn=filename,
-            img_cm='gray', gt_cm='Blues', pred_cm='Reds',
-            use_contour=True,
-            use_grid=False, grid_alpha=0.5)
+        viz_all(DCMimage, annotation, prediction,
+                save_to='./output', fn=filename,
+                img_cm='gray', gt_cm='Blues', pred_cm='Reds',
+                use_contour=True,
+                use_grid=False, grid_alpha=0.5)
 
     
