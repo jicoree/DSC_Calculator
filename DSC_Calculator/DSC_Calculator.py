@@ -125,13 +125,14 @@ def viz_all(input_img, gt_mask, pred_mask,
     
     plt.tight_layout()
     
-    plt.savefig(os.path.join(save_to, str(fn)+'_'+str(round(dice_score, 4))+'.png'), bbox_inches='tight')
+    plt.savefig(os.path.join(save_to, str(fn)+'_'+str(round(dice_score, 4))+'.pdf'), bbox_inches='tight')
 
 
 path = "./"
 file_list = sorted(os.listdir(path+'DCM'))
-DCM_list = [file for file in file_list if file.endswith(".dcm")]
-
+DCM_Extention = ['.dcm', '.DCM', '.Dcm', '.dCm', '.dcM', '.DCm', '.DcM', '.dCM']
+# DCM_list = [file for file in file_list if file.endswith('dcm')]
+DCM_list = [file for file in file_list if file.endswith(tuple(DCM_Extention))]
 
 for i in range (len(DCM_list)):
     DCM_file = DCM_list[i]
