@@ -1,16 +1,8 @@
-import cv2, os, glob
+import cv2, os
+import pydicom
 import numpy as np
-
 import matplotlib.pyplot as plt
 
-import pydicom
-
-import pandas as pd
-
-from tkinter import *
-from tkinter import filedialog
-
-from tempfile import TemporaryFile
 
 currentpath = os.getcwd()
 print(currentpath)
@@ -156,4 +148,3 @@ for i in range (len(DCM_list)):
             use_contour=True,
             use_grid=False, grid_alpha=0.5)
 
-    
