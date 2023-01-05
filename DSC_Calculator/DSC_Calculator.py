@@ -22,7 +22,7 @@ def dice(annotation, prediction):
 def viz_all(input_img, gt_mask, pred_mask,
             save_to='./output', fn='sample',
             img_cm='gray', gt_cm='Blues', pred_cm='Reds',
-            use_contour=True,
+            use_contour=False,
             use_grid=False, grid_alpha=0.5
            ):
     '''
@@ -44,38 +44,38 @@ def viz_all(input_img, gt_mask, pred_mask,
     
     os.makedirs(save_to, exist_ok=True)
    
-    plt.figure(figsize=(30, 20))
-    plt.suptitle(str("Dice score: {}".format(round(dice_score,4))), fontsize = 22, x = 0.1, y = 1, fontweight = 'bold')
+    plt.figure(figsize=(11.69, 8.27), dpi = 300)
+    plt.suptitle(str(filename + " " * 25 + "Dice score: {}".format(round(dice_score,4))), fontsize = 15, x = 0.5, y = 1, fontweight = 'bold')
     # plt.suptitle('PROS-CXR-01-CT-01', fontsize = 22, x = 0.5, y = 1, fontweight = 'bold')
     # plt.suptitle('Test', fontsize = 22, x = 0.8, y = 1, fontweight = 'bold')
     
-    plt.subplot(2,3,1)
-    plt.imshow(input_img, cmap=img_cm)
-    plt.title("Input", size=22)
+    plt.subplot(2,3,1).set_axis_off()
+    plt.imshow(input_img, cmap=img_cm, alpha = 1)
+    plt.title("Input", size=12)
 
-    plt.subplot(2,3,2)
+    plt.subplot(2,3,2).set_axis_off()
     plt.imshow(gt_mask, cmap=gt_cm)
-    plt.title("Mask-Ground Truth", size=22)
+    plt.title("Mask-Ground Truth", size=12)
 
-    plt.subplot(2,3,3)
+    plt.subplot(2,3,3).set_axis_off()
     plt.imshow(pred_mask, cmap=pred_cm)
-    plt.title("Mask-Prediction", size=22)
+    plt.title("Mask-Prediction", size=12)
 
-    plt.subplot(2,3,4)
-    plt.imshow(input_img, cmap=img_cm)
-    plt.imshow(gt_mask, cmap=gt_cm, alpha=0.5)
-    plt.imshow(pred_mask, cmap=pred_cm, alpha=0.5)
-    plt.title("Overlay-All", size=22)
+    plt.subplot(2,3,4).set_axis_off()
+    plt.imshow(input_img, cmap=img_cm, alpha = 1)
+    plt.imshow(np.logical_or(gt_mask, pred_mask), cmap = 'Greens', alpha=0.7)
+    plt.imshow(np.logical_and(gt_mask,pred_mask), cmap = 'Purples', alpha=0.7)
+    plt.title("Overlay-All", size=12)
 
-    plt.subplot(2,3,5)
-    plt.imshow(input_img, cmap=img_cm)
-    plt.imshow(gt_mask, cmap=gt_cm, alpha=0.5)
-    plt.title("Overlay-Ground Truth", size=22)
+    plt.subplot(2,3,5).set_axis_off()
+    plt.imshow(input_img, cmap=img_cm, alpha = 1)
+    plt.imshow(gt_mask, cmap=gt_cm, alpha=0.7)
+    plt.title("Overlay-Ground Truth", size=12)
 
-    plt.subplot(2,3,6)
-    plt.imshow(input_img, cmap=img_cm) 
-    plt.imshow(pred_mask, cmap=pred_cm, alpha=0.5)
-    plt.title("Overlay-Prediction", size=22)
+    plt.subplot(2,3,6).set_axis_off()
+    plt.imshow(input_img, cmap=img_cm, alpha = 1) 
+    plt.imshow(pred_mask, cmap=pred_cm, alpha=0.7)
+    plt.title("Overlay-Prediction", size=12)
 
     
     if use_grid == True:
@@ -145,6 +145,6 @@ for i in range (len(DCM_list)):
     viz_all(DCMimage, annotation, prediction,
             save_to='./output', fn=filename,
             img_cm='gray', gt_cm='Blues', pred_cm='Reds',
-            use_contour=True,
+            use_contour=False,
             use_grid=False, grid_alpha=0.5)
 
